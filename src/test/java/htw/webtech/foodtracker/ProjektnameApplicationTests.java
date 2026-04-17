@@ -1,4 +1,4 @@
-package htw.webtech.projektname;
+package htw.webtech.foodtracker;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
