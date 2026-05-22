@@ -1,13 +1,14 @@
-# 1. Schritt: Build-Umgebung mit Maven und Java 21
-FROM maven:3.9.6-eclipse-temurin-21 AS build
+# 1. Schritt: Build-Umgebung mit Gradle und Java 21
+FROM eclipse-temurin:21-jdk AS build
 WORKDIR /app
 COPY . .
-RUN mvn clean package -DskipTests
+RUN chmod +x gradlew
+RUN ./gradlew bootJar -x test
 
 # 2. Schritt: Schlankes Laufzeit-Image mit Java
 FROM eclipse-temurin:21-jre-jammy
 WORKDIR /app
-COPY --from=build /app/target/*.jar app.jar
+COPY --from=build /app/build/libs/*.jar app.jar
 
 # Port für Spring Boot öffnen
 EXPOSE 8080
